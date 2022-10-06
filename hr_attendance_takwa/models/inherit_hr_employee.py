@@ -26,7 +26,7 @@ class HrEmployee(models.Model):
                 # print("yes")
                 return super(HrEmployee,self).attendance_manual(next_action)
             else:
-                return Warning("Not allowed from this IP")
+                raise exceptions.ValidationError(_('Not allowed from this IP'))
                 # print("no")
                 # raise exceptions.ValidationError(_('Not allowed from this IP'))
                 # raise exceptions.ValidationError("Not allowed from this IP")
