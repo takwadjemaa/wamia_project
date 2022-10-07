@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : https://store.webkul.com/license.html/ -->
+<odoo>
+    <data>
+        <record id="mpc_seller_form_view" model="ir.ui.view">
+            <field name="name">seller.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="odoo_marketplace.wk_seller_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group[1]/group[2]/field[@name='title']" position="after">
+                    <field name="shop_categories" placeholder="Shop Category..." class="oe_no_button" attrs="{'required': [('user_ids','!=', [])]}"  options='{"no_open": True, "no_create": True}' required="1" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="mpc_seller_kanban_view" model="ir.ui.view">
+            <field name="name">seller.kanban</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="odoo_marketplace.wk_seller_kanban_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban" position="inside">
+                    <field name="shop_categories"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="mpc_seller_tree_view" model="ir.ui.view">
+            <field name="name">sellers</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="odoo_marketplace.wk_seller_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="inside">
+                    <field name="shop_categories"/>
+                </xpath>
+            </field>
+        </record>
+
+         <record id="mpc_seller_shop_kanban_view" model="ir.ui.view">
+            <field name="name">seller.shop.kanban</field>
+            <field name="model">seller.shop</field>
+            <field name="inherit_id" ref="odoo_marketplace.wk_seller_shop_kanban_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban/field[@name='shop_mobile']" position="after">
+                    <field name="shop_tag_line"/>
+                </xpath>
+            </field>
+         </record>
+
+
+        <record id="mpc_seller_shop_form_view" model="ir.ui.view">
+            <field name="name">seller.shop.form</field>
+            <field name="model">seller.shop</field>
+            <field name="inherit_id" ref="odoo_marketplace.wk_seller_shop_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form//sheet//group[4]/field[@name='description']" position="before">
+                    <field name="shop_tag_line" required="1" />
+                </xpath>
+            </field>
+         </record>
+
+
+    </data>
+</odoo>

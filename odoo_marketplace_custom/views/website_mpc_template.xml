@@ -1,0 +1,64 @@
+<odoo>
+    <data>
+<!--
+        <template id="listing">
+          <ul>
+            <li t-foreach="objects" t-as="object">
+              <a t-attf-href="#{ root }/objects/#{ object.id }">
+                <t t-esc="object.display_name"/>
+              </a>
+            </li>
+          </ul>
+        </template>
+        <template id="object">
+          <h1><t t-esc="object.display_name"/></h1>
+          <dl>
+            <t t-foreach="object._fields" t-as="field">
+              <dt><t t-esc="field"/></dt>
+              <dd><t t-esc="object[field]"/></dd>
+            </t>
+          </dl>
+        </template>
+-->
+        <template id="shop_category_template" inherit_id="odoo_marketplace.mp_seller_signup">
+			<xpath expr="//form//div[2]" position="inside">
+                <!--Start Shop Category-->
+						<div class="form-group field-shop">
+                            <t t-set="shop_categories" t-value="website.get_mp_ajax_shop_category()"/>
+							<t t-set="shop_category" t-value="website.user_id.sudo().partner_id.shop_categories"/>
+                            <label class="control-label" for="shop_category_id">Shop Category</label>
+                            <select id="shop_category_id" name="shop_category_id" class="form-control" t-att-required="'disabled' if set_seller or signup_from_seller_page else None">
+                                <option value="">Shop Category...</option>
+                                <t t-foreach="shop_categories" t-as="sc">
+                                    <option t-att-value="sc.id" t-att-selected="sc.id == (shop_category and shop_category.id or -1)">
+                                        <t t-esc="sc.name" />
+                                    </option>
+                                </t>
+                            </select>
+                        </div>
+					<!--End Shop Category-->
+            </xpath>
+        </template>
+
+
+
+        <template id="custom_view_shop_item_list" inherit_id="odoo_marketplace.seller_shop_list_item" active="True" customize_show="True" name="Shop Tag Line">
+		    <xpath expr="//div[@id='seller-shop-name']" position="inside">
+		        <div>
+		            <t t-esc="seller_shop.shop_tag_line.name"/>
+		        </div>
+		    </xpath>
+		</template>
+
+
+        <template id="custom_view_profile_seller" inherit_id="odoo_marketplace.seller_list_item">
+                <xpath expr="//div//t//t[2]/div[@id='seller_shop']/div/div[2]" position="replace">
+                    <div class="mb4 shop-tag-line">
+                        <t t-if="mp_seller_shop_id">
+                            <span><t t-esc="mp_seller_shop_id.shop_tag_line.name"/></span>
+                        </t>
+                    </div>
+                </xpath>
+        </template>
+    </data>
+</odoo>

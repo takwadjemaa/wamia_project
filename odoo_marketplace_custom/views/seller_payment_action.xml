@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.actions.server" id="seller_invoice_server_action">
+           <field name="name">Create Invoice</field>
+           <field name="model_id" ref="model_seller_payment"/>
+           <field name="binding_model_id" ref="model_seller_payment" />
+           <field name="state">code</field>
+           <field name="code">
+               if records:
+               action = records.seller_action_create_invoice()
+
+           </field>
+       </record>
+</odoo>

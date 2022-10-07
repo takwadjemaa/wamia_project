@@ -1,0 +1,72 @@
+
+<odoo>
+	<data>
+
+
+        <record id="inherit_wk_seller_payment_tree_view" model="ir.ui.view">
+            <field name="name">seller.payment</field>
+            <field name="model">seller.payment</field>
+            <field name="inherit_id" ref="odoo_marketplace.wk_seller_payment_tree_view"/>
+            <field name="arch" type="xml" >
+
+                 <xpath expr="//tree" position="replace">
+                     <tree string="Payment Method For Sellers" decoration-primary="order_state=='paid'"  decoration-success="payment_type=='dr' and state=='posted'" decoration-warning="state=='requested'" decoration-danger="payment_type=='cr' and order_state=='pending'" create="0" delete="0">
+                    <field name="name"/>
+                    <field name="seller_id" groups="odoo_marketplace.marketplace_officer_group"/>
+                    <field name="date"/>
+                    <field name="payment_type"/>
+                    <field name="payment_mode"/>
+                    <field name="memo"/>
+
+                     <field name="amount_total" sum="Total Amount" widget="monetary" attrs="{'invisible':[('payment_mode','!=', 'order_paid')]}"/>
+                    <field name="applied_commission" sum="Total Applied Commission" widget="monetary" attrs="{'invisible':[('payment_mode','!=', 'order_paid')]}"/>
+                     <field name="cashable_amountt"  widget="monetary" attrs="{'invisible':[('payment_mode','!=', 'seller_payment')]}"/>
+
+                    <field name="payable_amount" sum="Total Payable Amount" widget="monetary"/>
+                          <field name="rest_amount"  widget="monetary" attrs="{'invisible':[('payment_mode','!=', 'seller_payment')]}"/>
+                         <field name="order_state" attrs="{'invisible':[('payment_mode','==', 'seller_payment')]}"/>
+                    <field name="state"/>
+                    <field name="create_date" string="Create Date" widget="date"/>
+                    <field name="currency_id"/>
+                </tree>
+
+                 </xpath>
+
+
+            </field>
+        </record>
+
+
+           <record id="inherit_wk_seller_payment_form_" model="ir.ui.view">
+            <field name="name">Invoice</field>
+            <field name="model">seller.payment</field>
+            <field name="inherit_id" ref="odoo_marketplace.wk_seller_payment_form_view"/>
+            <field name="arch" type="xml">
+
+                 <xpath expr="//notebook/page[@name='account_invoice_lines']" position="after">
+                      <page name="account_invoice_lines2" string=" Payment Lines"  attrs="{'invisible':[('payment_type','=','cr')]}">
+                          <field name="payment_line_ids">
+                              <tree>
+                                          <field name="id_payment" invisible="1"/>
+                                          <field name="name"/>
+
+
+
+
+
+
+                              </tree>
+
+                          </field>
+                      </page>
+                </xpath>
+            </field>
+        </record>
+
+
+
+
+
+
+	</data>
+</odoo>

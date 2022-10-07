@@ -1,0 +1,21 @@
+.custom-control.custom-checkbox {
+            .custom-control-input {
+                ~ .custom-control-label:before {
+                    outline: none;
+                    border: 0px;
+                    border: 2px solid gray('400');
+                    border-radius: 0px;
+                    cursor: pointer;
+                }
+                &:checked {
+                    ~ .custom-control-label:before {
+                        background-color: theme-color('primary');
+                        border: 2px solid theme-color('primary');
+                    }
+                }
+            }
+            label:hover {
+                color: theme-color('primary');
+                cursor: pointer;
+            }
+        }

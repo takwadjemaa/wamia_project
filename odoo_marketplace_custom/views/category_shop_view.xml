@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Shop Public Categories -->
+    <record id="shop_public_category_form_view" model="ir.ui.view">
+        <field name="name">shop.category.form</field>
+        <field name="model">shop.category</field>
+        <field name="arch" type="xml">
+            <form string="Website Public Shop Categories">
+                <sheet>
+                    <field name="image_1920" widget="image" class="oe_avatar" options="{'preview_image': 'image_128'}"/>
+                    <div class="oe_left">
+                        <group>
+                            <field name="name"/>
+                            <field name="parent_id"/>
+                            <field name="website_id" options="{'no_create': True}" groups="website.group_multi_website"/>
+                            <field name="sequence" groups="base.group_no_one"/>
+                        </group>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="shop_public_category_tree_view" model="ir.ui.view">
+        <field name="name">shop.category.tree</field>
+        <field name="model">shop.category</field>
+        <field name="arch" type="xml">
+            <tree string="Shop Public Categories">
+                <field name="sequence" widget="handle"/>
+                <field name="display_name"/>
+                <field name="website_id" groups="website.group_multi_website"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="shop_public_category_action" model="ir.actions.act_window">
+        <field name="name">Shop Categories</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">shop.category</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Define a new SHOP category
+          </p><p>
+            Categories are used to browse your sHOPS through the
+            touchscreen interface.
+          </p>
+        </field>
+    </record>
+
+    <menuitem id="wk_seller_dashboard_menu1_sub_categ_shop" name="Shops Category" parent="odoo_marketplace.wk_seller_dashboard_menu1" action="shop_public_category_action" sequence="3"/>
+
+</odoo>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_report_delivery_custom" model="ir.actions.report">
+        <field name="name">Delivery Slip Custom</field>
+        <field name="model">stock.picking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">odoo_marketplace_custom.report_deliveryslip_custom</field>
+        <field name="report_file">odoo_marketplace_custom.report_deliveryslip_custom</field>
+    </record>
+</odoo>

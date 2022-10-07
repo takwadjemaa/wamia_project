@@ -1,0 +1,108 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="odoo_marketplace_custom.list">
+      <field name="name">odoo_marketplace_custom list</field>
+      <field name="model">odoo_marketplace_custom.odoo_marketplace_custom</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="odoo_marketplace_custom.action_window">
+      <field name="name">odoo_marketplace_custom window</field>
+      <field name="res_model">odoo_marketplace_custom.odoo_marketplace_custom</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="odoo_marketplace_custom.action_server">
+      <field name="name">odoo_marketplace_custom server</field>
+      <field name="model_id" ref="model_odoo_marketplace_custom_odoo_marketplace_custom"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="odoo_marketplace_custom" id="odoo_marketplace_custom.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="odoo_marketplace_custom.menu_1" parent="odoo_marketplace_custom.menu_root"/>
+    <menuitem name="Menu 2" id="odoo_marketplace_custom.menu_2" parent="odoo_marketplace_custom.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="odoo_marketplace_custom.menu_1_list" parent="odoo_marketplace_custom.menu_1"
+              action="odoo_marketplace_custom.action_window"/>
+    <menuitem name="Server to list" id="odoo_marketplace_custom" parent="odoo_marketplace_custom.menu_2"
+              action="odoo_marketplace_custom.action_server"/>
+-->
+
+        <record id="add_state_in_stock_picking_form_formview" model="ir.ui.view">
+                <field name="name">stock.picking.form</field>
+                <field name="model">stock.picking</field>
+                <field name="inherit_id" ref="odoo_marketplace.add_seller_in_stock_picking_form_formview"/>
+                <field name="arch" type="xml">
+                    <field name="marketplace_seller_id" position="after">
+                        <field name="state_id"  />
+                    </field>
+                </field>
+        </record>
+
+        <record id="vpicktree_inherit_stock_picking_tree" model="ir.ui.view">
+            <field name="name">stock.picking.tree</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="state_id" optional="show"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--Filter Stock Picking-->
+
+        <record id="view_stock_picking_custom" model="ir.ui.view">
+            <field name="name">Stock Picking Add Address Group By For MP Manager</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+            <field name="arch" type="xml">
+                <group position="inside">
+                    <filter string="Custom Address" name="group_by_state"  context="{'group_by':'state_id'}"/>
+                </group>
+            </field>
+        </record>
+
+    <!-- Sale Order Tree-->
+      <record id="sale_order_view_order_tree" model="ir.ui.view">
+            <field name="name">sale.order.tree.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="marketplace_seller_id" optional="show"/>
+                </xpath>
+            </field>
+      </record>
+
+  </data>
+</odoo>
