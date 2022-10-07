@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+<!--<report-->
+<!--    id="coupons_report"-->
+<!--    model="voucher.voucher"-->
+<!--    string="Vouchers"-->
+<!--    report_type="qweb-pdf"-->
+<!--    name="wk_coupons.report_coupon"-->
+<!--/>-->
+
+    <record id="coupons_report" model="ir.actions.report">
+        <field name="name">wk_coupons report_coupon</field>
+        <field name="model">voucher.voucher</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">wk_coupons.report_coupon</field>
+        <field name="report_file">wk_coupons.report_coupon</field>
+        <field name="binding_model_id" ref="wk_coupons.model_voucher_voucher"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</data>
+</odoo>
